@@ -29,6 +29,9 @@ import pytz
 from telethon.tl.functions.messages import ImportChatInviteRequest
 
 
+server_timezone = pytz.timezone('Europe/Moscow')
+
+
 class TelethonMonitorChats:
     def __init__(self, session_name):
         env = Env()
@@ -130,7 +133,11 @@ class TelethonMonitorChats:
                             logger.error(e)
                             username = None
 
-                        msg_date = message.date.strftime('%d-%m-%Y %H:%M:%S')
+                        message_time = datetime.fromtimestamp(message.date.timestamp(), tz=pytz.utc)
+                        # Преобразуйте время в часовой пояс вашего сервера
+                        message_time = message_time.astimezone(server_timezone)
+                        # Форматируйте дату в строку
+                        msg_date = message_time.strftime('%d-%m-%Y %H:%M:%S')
                         bot_message = (f'<b>Дата:</b> {msg_date}'
                                        f'\n<b>Чат:</b> @{chat_name}'
                                        f'\n<b>Пользователь:</b> @{username}'
