@@ -51,6 +51,9 @@ class TelethonMonitorChats:
             async for message in self.client.iter_messages(entity.id, wait_time=1, limit=30):
                 if message.message:
                     message_text = message.message.lower()
+                    if len(message_text) > 150:
+                        logger.warning('message is too long. message skipped.')
+                        continue
                     message_text = message_text.split(' ')
                 else:
                     continue
