@@ -144,6 +144,7 @@ class TelethonMonitorChats:
                         if isinstance(admin_list, list):
                             for admin in admin_list:
                                 await aiogram_bot.send_message(admin, bot_message, parse_mode='HTML')
+                                print(f'msg sent to {admin}')
                         else:
                             await aiogram_bot.send_message(admin_list, bot_message, parse_mode='HTML')
                     except Exception as e:
