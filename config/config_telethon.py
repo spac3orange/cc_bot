@@ -40,10 +40,9 @@ class TelethonMonitorChats:
         self.session_name = 'data/telethon_sessions/{}'.format(session_name)
         self.client = TelegramClient(self.session_name, self.api_id, self.api_hash)
 
-    async def get_chat_messages(self, chat_link, kw_list, interval):
+    async def get_chat_messages(self, chat_link, kw_list, interval, offset_date):
         try:
-            utc_now = datetime.now(pytz.utc)
-            offset_date = utc_now - timedelta(minutes=interval)
+
             messages = []
             entity = await self.client.get_entity(chat_link)
             print(entity)
@@ -93,6 +92,8 @@ class TelethonMonitorChats:
                 return
 
             await self.client.connect()
+            utc_now = datetime.now(pytz.utc)
+            offset_date = utc_now - timedelta(minutes=interval)
             for chat in chats_list:
                 try:
                     if chat.startswith('https://t.me/+') or chat.startswith('https://t.me/joinchat/'):
@@ -106,7 +107,7 @@ class TelethonMonitorChats:
                             logger.error(e)
                             pass
                     try:
-                        chat_messages = await asyncio.wait_for(self.get_chat_messages(f'{chat}', kw_list, interval), timeout=15)
+                        chat_messages = await asyncio.wait_for(self.get_chat_messages(f'{chat}', kw_list, interval, offset_date), timeout=15)
                     except asyncio.TimeoutError as e:
                         logger.error(e)
                         continue
