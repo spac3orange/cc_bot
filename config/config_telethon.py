@@ -51,7 +51,6 @@ class TelethonMonitorChats:
                 if message.message:
                     message_text = message.message.lower()
                     if len(message_text) > 150:
-                        logger.warning('message is too long. message skipped.')
                         continue
                     message_text = message_text.split(' ')
                 else:
@@ -95,6 +94,7 @@ class TelethonMonitorChats:
             utc_now = datetime.now(pytz.utc)
             offset_date = utc_now - timedelta(minutes=interval)
             for chat in chats_list:
+                logger.info(f'checking chat {chat}...')
                 try:
                     if chat.startswith('https://t.me/+') or chat.startswith('https://t.me/joinchat/'):
                         try:
