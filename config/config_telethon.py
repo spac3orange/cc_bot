@@ -45,8 +45,6 @@ class TelethonMonitorChats:
 
             messages = []
             entity = await self.client.get_entity(chat_link)
-            print(entity)
-            print(f'интервал - {interval}')
             async for message in self.client.iter_messages(entity.id, wait_time=1, limit=30):
                 if message.message:
                     message_text = message.message.lower()
@@ -61,7 +59,6 @@ class TelethonMonitorChats:
                     if kw in message_text:
                         logger.info('Keyword found.')
                         messages.append(message)
-                print(message_text)
             # input_entity = InputPeerChat(entity.id)
             #
             # messages = await self.client(GetHistoryRequest(
@@ -99,7 +96,6 @@ class TelethonMonitorChats:
                     if chat.startswith('https://t.me/+') or chat.startswith('https://t.me/joinchat/'):
                         try:
                             chatname = chat.split('/')[-1].lstrip('+')
-                            print(chatname)
                             updates = await self.client(ImportChatInviteRequest(chatname))
                         except telethon.errors.ChatAdminRequiredError:
                             chat = chatname
@@ -120,7 +116,6 @@ class TelethonMonitorChats:
 
             if approved_messages:
                 admin_list = config_aiogram.admin_id
-                print(admin_list)
                 for message in approved_messages:
                     try:
                         try:
@@ -146,13 +141,10 @@ class TelethonMonitorChats:
                                        f'\n<b>Чат:</b> @{chat_name}'
                                        f'\n<b>Пользователь:</b> @{username}'
                                        f'\n<b>Сообщение:</b>\n{message.message}')
-                        print(chat_entity)
                         if isinstance(admin_list, list):
                             for admin in admin_list:
-                                print(message)
                                 await aiogram_bot.send_message(admin, bot_message, parse_mode='HTML')
                         else:
-                            print(message)
                             await aiogram_bot.send_message(admin_list, bot_message, parse_mode='HTML')
                     except Exception as e:
                         logger.error(e)
