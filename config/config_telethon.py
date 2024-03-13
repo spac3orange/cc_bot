@@ -58,7 +58,9 @@ class TelethonMonitorChats:
                 for kw in kw_list:
                     if kw in message_text:
                         logger.info('Keyword found.')
-                        messages.append(message)
+                        if message not in messages:
+                            logger.info('message added to forwarded ')
+                            messages.append(message)
             # input_entity = InputPeerChat(entity.id)
             #
             # messages = await self.client(GetHistoryRequest(
