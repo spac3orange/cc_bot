@@ -9,6 +9,7 @@ from filters.is_admin import IsAdmin
 from keyboards import main_kb
 from utils import json_action
 from states import states
+from database import db
 router = Router()
 router.message.filter(
     IsAdmin(F)
@@ -16,7 +17,8 @@ router.message.filter(
 
 
 async def kw_settings(message):
-    keywords_list = await json_action.open_json('data/keywords.json')
+    uid = message.from_user.id
+    keywords_list = await db.get_all_keywords(uid)
     await message.answer('<b>Список текущих установленных ключевых слов: </b>'
                          f'\n{keywords_list}', reply_markup=main_kb.keywords_action(), parse_mode='HTML')
 
@@ -24,7 +26,8 @@ async def kw_settings(message):
 @router.callback_query(F.data == 'keywords')
 async def p_keywords(callback: CallbackQuery):
     await callback.answer()
-    keywords_list = await json_action.open_json('data/keywords.json')
+    uid = callback.from_user.id
+    keywords_list = await db.get_all_keywords(uid)
     await callback.message.answer('<b>Список текущих установленных ключевых слов: </b>'
                                   f'\n{keywords_list}', reply_markup=main_kb.keywords_action(), parse_mode='HTML')
 
@@ -38,21 +41,19 @@ async def p_add_kw(callback: CallbackQuery, state: FSMContext):
 
 @router.message(states.AddKw.input_kw)
 async def save_kw(message: Message, state: FSMContext):
-    #await aiogram_bot.send_chat_action(message.chat.id, 'typing')
     new_kw = message.text
-    kw_list = await json_action.open_json('data/keywords.json')
-    if kw_list == 'Нет':
-        chats_lst = [new_kw]
-    else:
-        kw_list.append(new_kw)
-
-    file_name = 'keywords.json'
-    await json_action.write_json(kw_list, file_name)
-    await message.answer('Ключевое слово успешно добавлено.')
-    keywords_list = await json_action.open_json('data/keywords.json')
-    await state.clear()
-    await message.answer('<b>Список ключевых слов: </b>'
-                         f'\n{keywords_list}', reply_markup=main_kb.keywords_action(), parse_mode='HTML')
+    uid = message.from_user.id
+    try:
+        await db.add_keywords(uid, new_kw)
+        await message.answer('Ключевое слово успешно добавлено.')
+    except Exception as e:
+        logger.error(e)
+        await message.answer('Ошибка при добавлении ключевого слова.')
+    finally:
+        await state.clear()
+        keywords_list = await db.get_all_keywords(uid)
+        await message.answer('<b>Список ключевых слов: </b>'
+                             f'\n{keywords_list}', reply_markup=main_kb.keywords_action(), parse_mode='HTML')
 
 
 @router.callback_query(F.data == 'del_kw')
@@ -64,17 +65,14 @@ async def p_del_kw(callback: CallbackQuery, state: FSMContext):
 
 @router.message(states.DelKw.input_kw)
 async def kw_deleted(message: Message, state: FSMContext):
+    uid = message.from_user.id
     del_kw = message.text
-    kw_list = await json_action.open_json('data/keywords.json')
-    if kw_list == 'Нет':
-        await message.answer('Список ключевых слов пуст.')
-        await state.clear()
-    else:
-        if del_kw in kw_list:
-            kw_list.remove(del_kw)
-            await json_action.write_json(kw_list, 'keywords.json')
-            await message.answer(f'Ключевое слово [{del_kw}] удалено.')
-            await kw_settings(message)
-        else:
-            await message.answer(f'Ключевое слово [{del_kw}] не найдено в списке ключевых слов.')
+    try:
+        await db.remove_keywords(uid, del_kw)
+        await message.answer(f'Ключевое слово [{del_kw}] успешно удалено.')
+        await kw_settings(message)
+    except Exception as e:
+        logger.error(e)
+        await message.answer('Ошибка при удалении ключевого слова.')
+    finally:
         await state.clear()

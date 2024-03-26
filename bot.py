@@ -3,7 +3,9 @@ from aiogram import Dispatcher
 from aiogram.fsm.storage.memory import MemoryStorage
 from config import aiogram_bot, logger
 from keyboards import set_commands_menu
-from handlers import start, keywords_settings, chats_settings, interval_settings
+from handlers import (start, keywords_settings, chats_settings,
+                      interval_settings, user_lk)
+from database import db
 
 
 async def start_params() -> None:
@@ -12,6 +14,7 @@ async def start_params() -> None:
     dp.include_router(keywords_settings.router)
     dp.include_router(chats_settings.router)
     dp.include_router(interval_settings.router)
+    dp.include_router(user_lk.router)
 
     logger.info('Bot started')
 
@@ -19,7 +22,7 @@ async def start_params() -> None:
     await set_commands_menu(aiogram_bot)
 
     # инициализирем БД
-    # await db.db_start()
+    await db.db_start()
 
     # Пропускаем накопившиеся апдейты и запускаем polling
     await aiogram_bot.delete_webhook(drop_pending_updates=True)

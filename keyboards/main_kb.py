@@ -1,13 +1,23 @@
 from aiogram.utils.keyboard import InlineKeyboardBuilder
+from config import config_aiogram
 
 
-def start_btns():
-    kb_builder = InlineKeyboardBuilder()
-    kb_builder.button(text='Запустить', callback_data='bot_start')
-    kb_builder.button(text='Остановить', callback_data='bot_stop')
-    kb_builder.button(text='Ключевые слова', callback_data='keywords')
-    kb_builder.button(text='Чаты', callback_data='tg_groups')
-    kb_builder.button(text='Интервал', callback_data='timing_settings')
+def start_btns(uid):
+    admins = config_aiogram.admin_id
+    if uid in admins:
+        kb_builder = InlineKeyboardBuilder()
+        kb_builder.button(text='Запустить', callback_data='bot_start')
+        kb_builder.button(text='Остановить', callback_data='bot_stop')
+        kb_builder.button(text='Ключевые слова', callback_data='keywords')
+        kb_builder.button(text='Чаты', callback_data='tg_groups')
+        kb_builder.button(text='Интервал', callback_data='timing_settings')
+    else:
+        kb_builder = InlineKeyboardBuilder()
+        kb_builder.button(text='Запустить', callback_data='bot_start')
+        kb_builder.button(text='Остановить', callback_data='bot_stop')
+        kb_builder.button(text='Ключевые слова', callback_data='keywords')
+        kb_builder.button(text='Чаты', callback_data='tg_groups')
+        kb_builder.button(text='Личный Кабинет', callback_data='user_lk')
 
     kb_builder.adjust(2)
     return kb_builder.as_markup(resize_keyboard=True)

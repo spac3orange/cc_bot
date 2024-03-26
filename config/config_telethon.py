@@ -1,29 +1,13 @@
 import asyncio
-import random
 
 import telethon.errors
-from telethon import TelegramClient, errors, functions
-from environs import Env
-from telethon.tl.functions.messages import SendMessageRequest
-from telethon.tl.types import InputPeerChannel
+from telethon import TelegramClient
 from config.logger import logger
-from telethon.tl.functions.channels import JoinChannelRequest, GetFullChannelRequest
 import datetime
-from telethon.tl.functions.messages import GetHistoryRequest
 from datetime import timedelta, datetime
-from config import aiogram_bot
-from telethon.tl.functions.account import UpdateProfileRequest, UpdateUsernameRequest
-from telethon.tl.functions.photos import UploadProfilePhotoRequest
-from telethon.tl.functions.users import GetFullUserRequest
-from telethon.errors import UsernameOccupiedError
-from telethon.tl.functions.photos import GetUserPhotosRequest, DeletePhotosRequest
-from telethon.tl.types import InputPhoto
-import aiofiles
-import re
-from telethon.tl.types import InputPeerChat
+
 from environs import Env
 from utils import json_action
-from pprint import pprint
 from config import aiogram_bot, config_aiogram
 import pytz
 from telethon.tl.functions.messages import ImportChatInviteRequest

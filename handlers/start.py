@@ -6,6 +6,7 @@ from config import logger
 from filters.is_admin import IsAdmin
 from keyboards import main_kb
 from utils import monitor_obj
+from database import db
 router = Router()
 router.message.filter(
     IsAdmin(F)
@@ -14,14 +15,17 @@ router.message.filter(
 
 @router.message(Command(commands='start'))
 async def process_start(message: Message, state: FSMContext):
-    logger.info(f'user {message.from_user.username} connected')
     await state.clear()
+    uid = message.from_user.id
+    uname = message.from_user.username
+    logger.info(f'user {message.from_user.username} connected')
+    await db.add_user(user_id=uid, username=uname)
     status = 'Выключен' if not await monitor_obj.get_status() else 'Включен'
     interval = await monitor_obj.get_interval()
     await message.answer('<b>Добро пожаловать!</b>'
                          f'\n\n<b>Статус:</b> {status}'
                          f'\n<b>Интервал мониторинга:</b> {interval}',
-                         reply_markup=main_kb.start_btns(), parse_mode='HTML')
+                         reply_markup=main_kb.start_btns(uid), parse_mode='HTML')
 
 
 @router.callback_query(F.data == 'bot_start')

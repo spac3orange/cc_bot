@@ -4,45 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c1b0ad94-3e2f-487c-94ef-c2055741c14c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/chat_checker.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/config_aiogram.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/config_telethon.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/logger.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/chats.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/keywords.json" afterDir="false" />
+    <list default="true" id="c1b0ad94-3e2f-487c-94ef-c2055741c14c" name="Changes" comment="version 1.4">
       <change afterPath="$PROJECT_DIR$/data/telethon_sessions/+66 8 1492 5770.session" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filters/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/filters/is_admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/chats_settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/interval_settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/keywords_settings.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/handlers/start.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/keyboards/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/keyboards/main_kb.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/keyboards/pop_up_menu.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/states/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/states/states.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/json_action.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/utils/scheduler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/db_action.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/handlers/user_lk.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bot.py" beforeDir="false" afterPath="$PROJECT_DIR$/bot.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config_telethon.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/config_telethon.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/chats_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/chats_settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/keywords_settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/keywords_settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/start.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/keyboards/main_kb.py" beforeDir="false" afterPath="$PROJECT_DIR$/keyboards/main_kb.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
@@ -54,17 +47,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.bot.executor": "Run",
-    "Python.config_telethon.executor": "Run",
-    "Python.keywords_settings.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "D:/MyProjects/Work Projects/Kwork_2024/chat_checker/data/telethon_sessions",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.bot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.config_telethon.executor&quot;: &quot;Run&quot;,
+    &quot;Python.keywords_settings.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/MyProjects/Work Projects/Kwork_2024/chat_checker/data/telethon_sessions&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\MyProjects\Work Projects\Kwork_2024\chat_checker\data\telethon_sessions" />
@@ -165,6 +158,82 @@
       <option name="presentableId" value="Default" />
       <updated>1709936987463</updated>
     </task>
+    <task id="LOCAL-00001" summary="version 1">
+      <option name="closed" value="true" />
+      <created>1710188797859</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1710188797859</updated>
+    </task>
+    <task id="LOCAL-00002" summary="version 1.1">
+      <option name="closed" value="true" />
+      <created>1710243462697</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1710243462697</updated>
+    </task>
+    <task id="LOCAL-00003" summary="version 1.2">
+      <option name="closed" value="true" />
+      <created>1710270749214</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1710270749214</updated>
+    </task>
+    <task id="LOCAL-00004" summary="version 1.3">
+      <option name="closed" value="true" />
+      <created>1710319053927</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1710319053927</updated>
+    </task>
+    <task id="LOCAL-00005" summary="version 1.3">
+      <option name="closed" value="true" />
+      <created>1710319130528</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1710319130528</updated>
+    </task>
+    <task id="LOCAL-00006" summary="version 1.3">
+      <option name="closed" value="true" />
+      <created>1710319182591</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1710319182591</updated>
+    </task>
+    <task id="LOCAL-00007" summary="version 1.4">
+      <option name="closed" value="true" />
+      <created>1710319561930</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1710319561930</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="version 1" />
+    <MESSAGE value="version 1.1" />
+    <MESSAGE value="version 1.2" />
+    <MESSAGE value="version 1.3" />
+    <MESSAGE value="version 1.4" />
+    <option name="LAST_COMMIT_MESSAGE" value="version 1.4" />
   </component>
 </project>

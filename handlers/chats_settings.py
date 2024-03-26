@@ -8,14 +8,24 @@ from filters.is_admin import IsAdmin
 from keyboards import main_kb
 from utils import json_action
 from states import states
+from database import db
 router = Router()
 router.message.filter(
     IsAdmin(F)
 )
 
+async def get_chat_id(link: str) -> int:
+    try:
+        chat = await aiogram_bot.get_chat(link)
+        return chat.id
+    except Exception as e:
+        logger.error(e)
+        return 'No'
 
 async def groups_settings(message):
-    chats_list = await json_action.open_json('data/chats.json')
+    uid = message.from_user.id
+    chats_list = await db.get_monitor_list(uid)
+
     if chats_list != 'Нет':
         string = ''
         print(chats_list)
@@ -30,7 +40,9 @@ async def groups_settings(message):
 @router.callback_query(F.data == 'tg_groups')
 async def p_groups(callback: CallbackQuery):
     await callback.answer()
-    chats_list = await json_action.open_json('data/chats.json')
+    uid = callback.from_user.id
+    chats_list = await db.get_monitor_list(uid)
+
     if chats_list != 'Нет':
         string = ''
         for chat in chats_list:
@@ -51,17 +63,19 @@ async def p_add_chat(callback: CallbackQuery, state: FSMContext):
 @router.message(states.AddChat.input_chat)
 async def save_chat(message: Message, state: FSMContext):
     new_chat = message.text
-    chats_lst = await json_action.open_json('data/chats.json')
-    if chats_lst == 'Нет':
-        chats_lst = [new_chat]
-    else:
-        chats_lst.append(new_chat)
-    filename = 'chats.json'
-    await json_action.write_json(chats_lst, filename)
-    await message.answer('Чат добавлен.')
-    chats_lst = await json_action.open_json('data/chats.json')
-    await state.clear()
-    await groups_settings(message)
+    chat_id = await get_chat_id(new_chat)
+    uid = message.from_user.id
+    try:
+        await db.add_to_monitor_list(uid, new_chat,chat_id)
+        await message.answer('Чат добавлен.')
+
+    except Exception as e:
+        logger.error(f'Ошибка при добавлении чата: {e}')
+        await message.answer('Ошибка при добавлении чата.')
+
+    finally:
+        await state.clear()
+        await groups_settings(message)
 
 
 @router.callback_query(F.data == 'del_chat')
@@ -74,16 +88,14 @@ async def p_del_chat(callback: CallbackQuery, state: FSMContext):
 @router.message(states.DelChat.input_chat)
 async def chat_deleted(message: Message, state: FSMContext):
     del_chat = message.text
-    chats_list = await json_action.open_json('data/chats.json')
-    if chats_list == 'Нет':
-        await message.answer('Список чатов пуст.')
+    uid = message.from_user.id
+    try:
+        await db.remove_from_monitor_list(uid, del_chat)
+        await message.answer(f'Чат [{del_chat}] удален из списка чатов.')
+        await groups_settings(message)
+    except Exception as e:
+        logger.error(e)
+        await message.answer('Ошибка при удалении чата.')
+    finally:
         await state.clear()
-    else:
-        if del_chat in chats_list:
-            chats_list.remove(del_chat)
-            await json_action.write_json(chats_list, 'chats.json')
-            await message.answer(f'Чат [{del_chat}] удален из списка чатов.')
-            await groups_settings(message)
-        else:
-            await message.answer(f'Чат [{del_chat}] не найден в списке чатов.')
-        await state.clear()
+
